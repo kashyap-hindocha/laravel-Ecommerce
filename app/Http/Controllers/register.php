@@ -16,6 +16,6 @@ class register extends Controller
 
         DB::insert($query);
 
-        return redirect('welcome');
+        return view('welcome');
     }
 }

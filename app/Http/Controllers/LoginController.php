@@ -13,34 +13,31 @@ use Validator;
 
 
 
-class logincontroller extends Controller
+class LoginController extends Controller
 {
     
      
     
-    public function logout()    
+    public function logout()
     {
         Auth::logout();
         Session::flush();
-        return view('welcome');
+        return redirect('/');
     }
     
     public function add_janu(Request $request)
     {
-        $users = User::all();
+        $users = Register::all();
         return view('register');
     }
     public function login(Request $request)
     {
-            
-        $users = User::all();
-        return view('loginregister');
+        $users = Register::all();
+        return view('login1');
     }
     public function loginsuccess(Request $request)
     {
-        if($request->login == "login")
-        {
-         $data = $request->all();
+        $data = $request->all();
         $rules = [
             'email' => "required|email",
             'password' => "required",
@@ -51,45 +48,44 @@ class logincontroller extends Controller
         ];
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->fails()) {
-            echo"hello";
             return back()->withInput()
                 ->withErrors($validator);
         }
+
         $credentials = $request->only('email', 'password');
-        
+
         if (Auth::attempt($credentials)) 
         {
-            return redirect('welcome'); 
+            echo"hello";
+            return view('welcome'); 
         }
         else
         {
-             return redirect('login');
+            echo"byy";
+            print_r($credentials);
         }
-    }
-    else
-    {
-        return view('login1');
-    }
     }
     
     public function success(Request $request)
     {
         $data = $request->all();
+        
         $rules = [
             'first_name' => "required|alpha",
             'last_name' => "required|alpha",
             'user_name' => "required|alpha",
             'email' => "required|email",
-            'password' => "required|confirmed",
-            'password_confirmation' => "required",
+            'password' => "required",
+            //'password_confirmation' => "required",
             'mobile_no' => "required|digits:10",
-            'course' => "required|alpha",
+            //'course' => "required|alpha",
             'address' => "required|alpha_num",
             'city' => "required|alpha",
             'state' => "required|alpha",
             'country' => "required|alpha",
             'zip_code' => "required|numeric",
         ];
+
         $messages = [
             'first_name.required' => 'please enter first name',
             'last_name.required' => 'please enter Last name',
@@ -97,9 +93,9 @@ class logincontroller extends Controller
             'email.required' => 'please enter email',
             'email.email' => 'Enter email in proper format',
             'password.required' => 'please enter Password',
-            'password_confirmation.required' => 'please enter Cofirmed password',
+            //'password_confirmation.required' => 'please enter Cofirmed password',
             'mobile_no.required' => 'please enter Mobile No.',
-            'course.required' => 'please enter course',
+           // 'course.required' => 'please enter course',
             'address.required' => 'please enter address',
             'city.required' => 'please enter city',
             'state.required' => 'please enter state',
@@ -112,24 +108,22 @@ class logincontroller extends Controller
             return back()->withInput()
                 ->withErrors($validator);
         }
-
-        User::insert([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'user_name' => $request->user_name,
+       Register::insert([
+            'fnm' => $request->first_name,
+            'lnm' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mobile_no' => $request->mobile_no,
+            'mno' => $request->mobile_no,
             'gender' => $request->gender,
-            'course' => $request->course,
             'address' => $request->address,
             'city' => $request->city,
+            'pin_code' => $request->zip_code,
             'state' => $request->state,
             'country' => $request->country,
-            'zip_code' => $request->zip_code,
+            'uname' => $request->user_name,
+            'password' => Hash::make($request->password),
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
         ]);
-        return redirect()->to('login');
+        return redirect()->to('/');
     }
 }
