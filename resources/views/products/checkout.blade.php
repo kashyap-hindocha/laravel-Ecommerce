@@ -31,11 +31,11 @@
                  type="text" placeholder="Billing Address" class="form-control"/>
                 </div>
                 <div class="form-group">
-                <input name="billing_city" id="billing_city" @if(!empty($userDetails->city)) value="{{$userDetails->city}}" @endif
-                 type="text" placeholder="Billing City"  class="form-control"/>
+                <input name="billing_city" pattern="[a-zA-Z]{1,20}" id="billing_city" @if(!empty($userDetails->city)) value="{{$userDetails->city}}" @endif
+                 type="text" placeholder="Billing City"  class="form-control" />
                 </div>
                 <div class="form-group">
-                <input name="billing_state" id="billing_state" @if(!empty($userDetails->state)) value="{{$userDetails->state}}" @endif
+                <input name="billing_state"pattern="[a-zA-Z]{1,20}"  id="billing_state" @if(!empty($userDetails->state)) value="{{$userDetails->state}}" @endif
                  type="text" placeholder="Billing State"  class="form-control"/>
                 </div>
                 <div class="form-group">
@@ -49,15 +49,15 @@
                 </select>
                 </div>
                 <div class="form-group">
-                <input type="text" name="billing_pincode" id="billing_pincode" @if(!empty($userDetails->pincode)) value="{{$userDetails->pincode}}" @endif
-                 placeholder="Billing Pincode" pattern="[0-9]{6}" class="form-control"/>
+                <input type="text" pattern="[0-9]{6}" minlength="1" name="billing_pincode" id="billing_pincode" @if(!empty($userDetails->pincode)) value="{{$userDetails->pincode}}" @endif
+                 placeholder="Billing Pincode" class="form-control"/>
                 </div>
                 <div class="form-group">
                 <input name="billing_mobile" id="billing_mobile" @if(!empty($userDetails->mobile)) value="{{$userDetails->mobile}}" @endif
                  type="text" placeholder="Billing Mobile" class="form-control"/>
                 </div>
                 <div class="form-check">
-                <input value="{{$userDetails->name}}" type="checkbox" class="form-check-input" id="billtoship">
+                <input value="{{$userDetails->name}}" pattern="[0-9]{10}" minlength="10"  type="checkbox" class="form-check-input" id="billtoship">
                 <label class="form-check-label" for="billtoship">Shipping Address Same As Billing Address</label>
                 </div>
                 </div><!--/login form-->

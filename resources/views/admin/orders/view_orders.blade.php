@@ -36,36 +36,36 @@
             <thead>
                 <tr>
                 <th>Order ID</th>
-                <th>Order Date</th>
-                <th>Customer Name</th>
+                <!-- <th>Order Date</th>
+                <th>Customer Name</th> -->
                 <th>Customer Email</th>
-                <th>Ordered Product</th>
+                <!-- <th>Ordered Product</th> -->
                 <th>Order Amount</th>
                 <th>Order Status</th>
                 <th>Payment Method</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
                 </tr>
             </thead>
             <tbody>
             @foreach($orders as $order)
                 <tr class="gradeX">
                 <td>{{ $order->id }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>{{ $order->name }}</td>
+                <!-- <td>{{ $order->created_at }}</td>
+                <td>{{ $order->name }}</td> -->
                 <td>{{ $order->user_email }}</td>
-                <td>
+                <!-- <td>
                 @foreach($order->orders as $pro)
                 {{$pro->product_code}}
                 ({{$pro->product_qty}})
                 <br>
                 @endforeach  
-                </td>
+                </td> -->
                 <td>{{ $order->grand_total }}</td>
                 <td>{{ $order->order_status }}</td>
                 <td>{{ $order->payment_method }}</td>
-                <td class="center">
+                <!-- <td class="center">
                 <a target="_blank" href="{{url('/admin/view-order/'.$order->id)}}" class="btn btn-primary btn-mini" >View Order Details</a>
-            </td>
+            </td> -->
             </div>              
             @endforeach
             </tbody>
